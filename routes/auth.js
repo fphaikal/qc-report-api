@@ -8,6 +8,7 @@ const Auth = require("../lib/auth");
 const UserProfile = require("../lib/auth/userProfile");
 
 router.post("/login", Auth.login);
+router.post("/logout", Auth.logout);
 router.post("/register", Auth.register);
 router.get("/user", authMiddleware, UserProfile.get);
 router.put("/user", UserProfile.update);
