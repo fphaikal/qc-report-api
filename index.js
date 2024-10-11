@@ -12,6 +12,7 @@ const auth = require("./routes/auth");
 const finalInspection = require("./routes/finalInspectionRoute");
 const ncr = require("./routes/ncrRoute")
 const ipr = require("./routes/iprRoute")
+const ngData = require("./routes/ngDataRoute");
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -27,9 +28,10 @@ app.use("/api/auth", auth);
 app.use("/api/report/final-inspection", finalInspection);
 app.use("/api/report/ncr", ncr);
 app.use("/api/report/ipr", ipr);
+app.use("/api/report/ngData", ngData);
 
 initializeWhatsAppBot();
-
+  
 app.listen(port, () => {
   console.log(`Server is running on port ${port}\nhttp://localhost:${port}/`);
 });
