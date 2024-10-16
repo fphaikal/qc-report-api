@@ -27,10 +27,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", auth);
-app.use("/api/report/final-inspection", authMiddleware,finalInspection);
-app.use("/api/report/ncr", authMiddleware,ncr);
-app.use("/api/report/ipr", authMiddleware,ipr);
-app.use("/api/report/ngData", authMiddleware,ngData);
+app.use("/api/report/final-inspection", finalInspection);
+app.use("/api/report/ncr", ncr);
+app.use("/api/report/ipr", ipr);
+app.use("/api/report/ngData", ngData);
 
   
 app.listen(port, () => {

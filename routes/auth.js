@@ -10,7 +10,9 @@ const UserProfile = require("../lib/auth/userProfile");
 router.post("/login", Auth.login);
 router.post("/logout", Auth.logout);
 router.post("/register", Auth.register);
+router.post("/validation", Auth.validation);
 router.get("/user", authMiddleware, UserProfile.get);
 router.put("/user", UserProfile.update);
+
 
 module.exports = router;
