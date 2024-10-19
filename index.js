@@ -15,6 +15,7 @@ const finalInspection = require("./routes/finalInspectionRoute");
 const ncr = require("./routes/ncrRoute")
 const ipr = require("./routes/iprRoute")
 const ngData = require("./routes/ngDataRoute");
+const parts = require("./routes/partsRoute");
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -31,6 +32,7 @@ app.use("/api/report/final-inspection", finalInspection);
 app.use("/api/report/ncr", ncr);
 app.use("/api/report/ipr", ipr);
 app.use("/api/report/ngData", ngData);
+app.use("/api/data/parts", parts);
 
   
 app.listen(port, () => {
