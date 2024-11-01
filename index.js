@@ -24,7 +24,7 @@ const app = express();
 
 const port = 2025;
 
-const allowedOrigins = ['https://qc-report-app.vercel.app', 'http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin, callback) {
