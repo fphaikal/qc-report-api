@@ -1,13 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { initializeWhatsAppBot } = require("./lib/waBot");
-const authMiddleware = require('./middleware/authMiddleware')
-
 require('./cron/index');
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Documentation',
+      version: '1.0.0',
+      description: 'Auto-generated documentation with Swagger',
+    },
+    servers: [{ url: 'http://localhost:2025' }],
+  },
+  apis: ['./routes/*.js'], // Path ke file API Anda
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 const port = 2025;
 
 const auth = require("./routes/auth");
@@ -34,7 +49,7 @@ app.use("/api/report/ipr", ipr);
 app.use("/api/report/ngData", ngData);
 app.use("/api/data/parts", parts);
 
-  
 app.listen(port, () => {
   console.log(`Server is running on port ${port}\nhttp://localhost:${port}/`);
+  console.log(`Dokumentasi API tersedia di http://localhost:${port}/api-docs`);
 });
