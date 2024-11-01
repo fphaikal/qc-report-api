@@ -21,19 +21,24 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const app = express();
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const port = 2025;
 
-const auth = require("./routes/auth");
-const finalInspection = require("./routes/finalInspectionRoute");
-const ncr = require("./routes/ncrRoute")
-const ipr = require("./routes/iprRoute")
-const ngData = require("./routes/ngDataRoute");
-const parts = require("./routes/partsRoute");
+const allowedOrigins = ['https://qc-report-app.vercel.app', 'http://localhost:3000'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Izinkan request dari origin tertentu atau jika tidak ada origin (misalnya, ketika diakses dari server)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/", (req, res) => {
   res.send({
@@ -41,6 +46,13 @@ app.get("/", (req, res) => {
     author: "FPHaikal",
   });
 });
+
+const auth = require("./routes/auth");
+const finalInspection = require("./routes/finalInspectionRoute");
+const ncr = require("./routes/ncrRoute")
+const ipr = require("./routes/iprRoute")
+const ngData = require("./routes/ngDataRoute");
+const parts = require("./routes/partsRoute");
 
 app.use("/api/auth", auth);
 app.use("/api/report/final-inspection", finalInspection);
