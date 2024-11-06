@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const IPRSchema = new mongoose.Schema({
-    id: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
     info_date: { type: Date, required: true },
     department_section: { type: String, required: true },
     problem: { type: String, required: true },
