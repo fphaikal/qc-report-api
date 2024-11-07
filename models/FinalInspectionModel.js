@@ -9,9 +9,9 @@ const FinalInspectionSchema = new mongoose.Schema({
     end: { type: String, required: true },   // Timestamp in milliseconds
     total: { type: Number, required: true },
     persen: { type: Number, required: true },
-    ok: { type: Number, required: true },
-    ng: { type: Number, required: true },
-    type_ng: { type: String, required: true }
+    ng: { type: Number },
+    type_ng: { type: String },
+    keterangan: { type: String }
 }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
