@@ -8,6 +8,6 @@ router.post('/pic', IPR.getOperator);
 router.get('/chartData', authMiddleware, IPR.chartData);
 router.post('/', IPR.create);
 router.put('/', IPR.update);
-router.delete('/:id', IPR.delete);
+router.delete('/:_id', IPR.delete);
 
 module.exports = router;

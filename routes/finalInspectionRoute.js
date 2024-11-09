@@ -89,7 +89,7 @@ router.post('/', FinalInspection.create);
  *           schema:
  *             type: object
  *             properties:
- *               id:
+ *               _id:
  *                 type: string
  *               name:
  *                 type: string
@@ -104,12 +104,12 @@ router.put('/', FinalInspection.update);
 
 /**
  * @swagger
- * /{id}:
+ * /{_id}:
  *   delete:
  *     summary: Delete a final inspection by ID
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: _id
  *         required: true
  *         schema:
  *           type: string
@@ -117,6 +117,6 @@ router.put('/', FinalInspection.update);
  *       200:
  *         description: Final inspection deleted successfully
  */
-router.delete('/:id', FinalInspection.delete);
+router.delete('/:_id', FinalInspection.delete);
 
 module.exports = router;

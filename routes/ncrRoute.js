@@ -8,6 +8,6 @@ router.post('/pic', NCR.getOperator);
 router.get('/chartData', authMiddleware, NCR.chartData);
 router.post('/', NCR.create);
 router.put('/', NCR.update);
-router.delete('/:id', NCR.delete);
+router.delete('/:_id', NCR.delete);
 
 module.exports = router;
