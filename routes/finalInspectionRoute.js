@@ -118,5 +118,6 @@ router.put('/', FinalInspection.update);
  *         description: Final inspection deleted successfully
  */
 router.delete('/:_id', FinalInspection.delete);
+router.delete('/exportExcel', FinalInspection.exportToExcel);
 
 module.exports = router;

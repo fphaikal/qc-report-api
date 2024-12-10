@@ -10,7 +10,7 @@ const NGSchema = new mongoose.Schema({
     ng_quantity: { type: Number, required: true },
     operator: { type: String, required: true },
     detection: { type: String, required: true },
-    status: { type: Boolean, required: true },
+    status: { type: String, required: true },
     month: { type: Number, required: true, min: 1, max: 12 },  // Month as a number (1-12)
     year: { type: Number, required: true }
 }, {
