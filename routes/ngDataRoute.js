@@ -10,6 +10,6 @@ router.get('/tableData', authMiddleware, NgData.tableData);
 router.get('/exportExcel', authMiddleware, NgData.exportExcel);
 router.post('/', NgData.create);
 router.put('/', NgData.update);
-router.delete('/:_id', NgData.delete);
+router.delete('/', NgData.delete);
 
 module.exports = router;

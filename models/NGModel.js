@@ -12,7 +12,8 @@ const NGSchema = new mongoose.Schema({
     detection: { type: String, required: true },
     status: { type: String, required: true },
     month: { type: Number, required: true, min: 1, max: 12 },  // Month as a number (1-12)
-    year: { type: Number, required: true }
+    year: { type: Number, required: true },
+    production_id: { type: mongoose.Schema.Types.ObjectId, ref: "Production" }
 }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });

@@ -4,7 +4,7 @@ const productionSchema = new mongoose.Schema({
   part_name: String,
   customer: String,
   prod: Number,
-  ng_quantity: Number,
+  ng_quantity: { type: Number, required: true },
   month: Number,
   year: Number
 }, {
