@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
-const User = require('../models/User'); // Pastikan User model Anda sesuai dengan schema MongoDB
+const User = require('../models/UserModel'); // Pastikan User model Anda sesuai dengan schema MongoDB
 
 // Konfigurasi transporter untuk Nodemailer
 const transporter = nodemailer.createTransport({
