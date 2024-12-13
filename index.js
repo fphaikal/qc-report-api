@@ -55,6 +55,7 @@ const ngData = require("./routes/ngDataRoute");
 const parts = require("./routes/partsRoute");
 const production = require("./routes/productionRoute");
 const announcement = require("./routes/announcementRoute");
+const dbInfo = require("./routes/dbInfoRoute");
 
 app.use("/api/auth", auth);
 app.use("/api/report/final-inspection", finalInspection);
@@ -64,6 +65,7 @@ app.use("/api/report/ngData", ngData);
 app.use("/api/data/parts", parts);
 app.use("/api/data/production", production);
 app.use("/api/data/announcement", announcement);
+app.use("/api/data/db-info", dbInfo);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}\nhttp://localhost:${port}/`);

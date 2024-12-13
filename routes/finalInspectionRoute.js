@@ -7,18 +7,29 @@ const authMiddleware = require('../middleware/authMiddleware');
  * @swagger
  * /:
  *   get:
- *     summary: Retrieve all final inspections
- *     security:
- *       - bearerAuth: []
+ *     tags:
+ *       - Final Inspection
+ *     summary: Retrieve final inspection records by date
+ *     parameters:
+ *       - in: query
+ *         name: date
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Date in ISO format or 'all' to retrieve all records
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: JWT token for authentication
  *     responses:
  *       200:
- *         description: A list of final inspections
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
+ *         description: Success
+ *       400:
+ *         description: Missing or invalid date
+ *       500:
+ *         description: Server error
  */
 router.get('/', authMiddleware, FinalInspection.get);
 
@@ -26,39 +37,9 @@ router.get('/', authMiddleware, FinalInspection.get);
  * @swagger
  * /operator:
  *   post:
- *     summary: Retrieve operator details
- *     responses:
- *       200:
- *         description: Operator details retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- */
-router.post('/operator', FinalInspection.getOperator);
-
-/**
- * @swagger
- * /chartData:
- *   get:
- *     summary: Retrieve chart data for final inspections
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Chart data retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- */
-router.get('/chartData', authMiddleware, FinalInspection.chartData);
-
-/**
- * @swagger
- * /:
- *   post:
- *     summary: Create a new final inspection
+ *     tags:
+ *       - Final Inspection
+ *     summary: Retrieve final inspection records by operator
  *     requestBody:
  *       required: true
  *       content:
@@ -68,12 +49,92 @@ router.get('/chartData', authMiddleware, FinalInspection.chartData);
  *             properties:
  *               name:
  *                 type: string
- *               date:
+ *                 description: Name of the operator
+ *     responses:
+ *       200:
+ *         description: Success
+ *       400:
+ *         description: Missing operator name
+ *       500:
+ *         description: Server error
+ */
+router.post('/operator', FinalInspection.getOperator);
+
+/**
+ * @swagger
+ * /chartData:
+ *   get:
+ *     tags:
+ *       - Final Inspection
+ *     summary: Retrieve chart data for final inspections
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Type of data ('daily', 'operator', 'namePart')
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: JWT token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       400:
+ *         description: Missing data type
+ *       500:
+ *         description: Server error
+ */
+router.get('/chartData', authMiddleware, FinalInspection.chartData);
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     tags:
+ *       - Final Inspection
+ *     summary: Create a new final inspection record
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name_part:
  *                 type: string
- *                 format: date
+ *               process:
+ *                 type: string
+ *               operator:
+ *                 type: string
+ *               target:
+ *                 type: number
+ *               start:
+ *                 type: string
+ *                 format: date-time
+ *               end:
+ *                 type: string
+ *                 format: date-time
+ *               total:
+ *                 type: number
+ *               ok:
+ *                 type: number
+ *               ng:
+ *                 type: number
+ *               type_ng:
+ *                 type: string
+ *               keterangan:
+ *                 type: string
  *     responses:
  *       201:
- *         description: Final inspection created successfully
+ *         description: Record created successfully
+ *       400:
+ *         description: Missing required fields
+ *       500:
+ *         description: Server error
  */
 router.post('/', FinalInspection.create);
 
@@ -81,7 +142,9 @@ router.post('/', FinalInspection.create);
  * @swagger
  * /:
  *   put:
- *     summary: Update an existing final inspection
+ *     tags:
+ *       - Final Inspection
+ *     summary: Update a final inspection record
  *     requestBody:
  *       required: true
  *       content:
@@ -91,14 +154,38 @@ router.post('/', FinalInspection.create);
  *             properties:
  *               _id:
  *                 type: string
- *               name:
+ *               name_part:
  *                 type: string
- *               date:
+ *               process:
  *                 type: string
- *                 format: date
+ *               operator:
+ *                 type: string
+ *               target:
+ *                 type: number
+ *               start:
+ *                 type: string
+ *                 format: date-time
+ *               end:
+ *                 type: string
+ *                 format: date-time
+ *               total:
+ *                 type: number
+ *               ok:
+ *                 type: number
+ *               ng:
+ *                 type: number
+ *               type_ng:
+ *                 type: string
+ *               keterangan:
+ *                 type: string
+ *               created_at:
+ *                 type: string
+ *                 format: date-time
  *     responses:
  *       200:
- *         description: Final inspection updated successfully
+ *         description: Record updated successfully
+ *       500:
+ *         description: Server error
  */
 router.put('/', FinalInspection.update);
 
@@ -106,6 +193,8 @@ router.put('/', FinalInspection.update);
  * @swagger
  * /{_id}:
  *   delete:
+ *     tags:
+ *       - Final Inspection
  *     summary: Delete a final inspection by ID
  *     parameters:
  *       - in: path
@@ -115,9 +204,34 @@ router.put('/', FinalInspection.update);
  *           type: string
  *     responses:
  *       200:
- *         description: Final inspection deleted successfully
+ *         description: Record deleted successfully
+ *       500:
+ *         description: Server error
  */
 router.delete('/:_id', FinalInspection.delete);
-router.delete('/exportExcel', FinalInspection.exportToExcel);
+
+/**
+ * @swagger
+ * /exportToExcel:
+ *   get:
+ *     tags:
+ *       - Final Inspection
+ *     summary: Export final inspection data to Excel
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: JWT token for authentication
+ *     responses:
+ *       200:
+ *         description: Excel file generated successfully
+ *       404:
+ *         description: No data found for export
+ *       500:
+ *         description: Server error
+ */
+router.get('/exportExcel', authMiddleware, FinalInspection.exportToExcel);
 
 module.exports = router;
