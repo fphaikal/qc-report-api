@@ -48,14 +48,19 @@ app.get("/", (req, res) => {
 });
 
 const auth = require("./routes/auth");
-const finalInspection = require("./routes/finalInspectionRoute");
-const ncr = require("./routes/ncrRoute")
-const ipr = require("./routes/iprRoute")
-const ngData = require("./routes/ngDataRoute");
+
+//Data Route
 const parts = require("./routes/partsRoute");
 const production = require("./routes/productionRoute");
 const announcement = require("./routes/announcementRoute");
 const dbInfo = require("./routes/dbInfoRoute");
+const users = require("./routes/usersRoute");
+
+//Report Route
+const finalInspection = require("./routes/finalInspectionRoute");
+const ncr = require("./routes/ncrRoute")
+const ipr = require("./routes/iprRoute")
+const ngData = require("./routes/ngDataRoute");
 
 app.use("/api/auth", auth);
 app.use("/api/report/final-inspection", finalInspection);
@@ -66,6 +71,7 @@ app.use("/api/data/parts", parts);
 app.use("/api/data/production", production);
 app.use("/api/data/announcement", announcement);
 app.use("/api/data/db-info", dbInfo);
+app.use("/api/data/users", users);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}\nhttp://localhost:${port}/`);
